@@ -33,6 +33,9 @@
     <ClCompile Include="constants.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="menu_handlers.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="screens.h">
@@ -45,6 +48,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="constants.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="player.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="menu_handlers.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

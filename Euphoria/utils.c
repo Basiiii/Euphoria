@@ -4,10 +4,11 @@
 #include "utils.h"
 
 /**
- * Clears the screen using ANSI escape.
+ * Clears the screen.
  */
 void clearScreen() {
-    printf("\033[H\033[J");
+    //printf("\033[H\033[J");
+    system("cls");
 }
 
 /**

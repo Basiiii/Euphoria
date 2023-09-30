@@ -3,7 +3,9 @@
 #ifndef SCREENS_H
 #define SCREENS_H
 
-void displayEntryScreen();
+void displayLoadingScreen();
 void displayMenuScreen();
+void displayReturningPlayerMenu(const char* username);
+void displayNewPlayerMenu();
 
-#endif // SCREENS_H
+#endif
