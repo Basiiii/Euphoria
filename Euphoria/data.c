@@ -30,7 +30,28 @@ bool createNewSaveFile(const char* username) {
     }
     else {
         // Handle the error: Unable to create the save file.
-        // You can add error handling code here.
+        // TODO: Add error handling code here.
+        return false;
+    }
+}
+
+/*
+ * Create a new save file with the given username and initial chapter.
+ *
+ * @param username The username to be saved in the new file.
+ * @return True if the save file was created successfully, false otherwise.
+ */
+bool createNewSettingsFile(int typingSpeed) {
+    FILE* file;
+    errno_t err = fopen_s(&file, "settings.txt", "w");
+    if (err == 0 && file != NULL) {
+        fprintf(file, "TypingSpeed: %d\n", typingSpeed);
+        fclose(file);
+        return true;
+    }
+    else {
+        // Handle the error: Unable to create the save file.
+        // TODO: Add error handling code here.
         return false;
     }
 }

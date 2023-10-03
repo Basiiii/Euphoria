@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdbool.h>
 #include <windows.h>
+#include <conio.h>
 #include "utils.h"
 
 /**
@@ -14,12 +15,15 @@ void clearScreen() {
 /**
  * Prints loading dots (". . .") with a typing effect.
  *
+ * @param speed The typing speed (0 or 1).
  * @param delete Whether or not it will delete the dots at the end.
  * @param loops The number of times it will loop.
- *
+ * 
+ * Default is speed 1 (1000ms).
  */
-void printLoadingDots(bool delete, int loops) {
+void printLoadingDots(int speed, bool delete, int loops) {
     int delete_cycles = 0;
+    int delays[] = { 500, 1000}; // delay values in ms
 
     if (delete == true) {
         int delete_cycles = 3;
@@ -30,16 +34,16 @@ void printLoadingDots(bool delete, int loops) {
 
     for (int i = 0; i < loops; i++) {
 
-        Sleep(1000);
+        Sleep(delays[speed]);
 
         for (int j = 0; j < 3; j++) {
             printf(". ");
-            Sleep(1000);
+            Sleep(delays[speed]);
         }
 
         for (int j = 0; j < delete_cycles; j++) {
             printf("\b\b \b");
-            Sleep(500);
+            Sleep(delays[speed] / 2);
         }
     }
 }
@@ -59,14 +63,45 @@ void printAsciiArt(const char* art) {
  * @param speed The typing speed (0 to 3).
  * @param text  The text to be typed.
  * 
- * Default is speed 1 (100ms).
+ * Default is speed 1 (50ms).
  */
 void printTyping(int speed, const char* text) {
-    int delays[] = { 50, 100, 150, 200 }; // delay values in ms
+    int delays[] = { 20, 35, 50, 100 }; // delay values in ms
 
     for (int i = 0; text[i] != '\0'; i++) {
         printf("%c", text[i]);
         fflush(stdout); // Flush the output buffer to ensure immediate printing
+
+        if (_kbhit()) {
+            // If a key has been pressed, print the rest of the text and break the loop
+            printf("%s", text + i + 1);
+            (void)_getch(); // Read and discard the pressed key, ignoring its value
+            break;
+        }
+
         Sleep(delays[speed]);
     }
+}
+
+/**
+ * Gets the Username from user and checks to make sure it's under 50 chars and 
+ * follows the rules.
+ */
+char* getUsername(char* username) {
+    do {
+        printf("What is your name, traveler?\n");
+        fgets(username, 51, stdin);
+
+        if (strchr(username, '\n') == NULL) {
+            // Input was too long, discard remaining characters in input buffer
+            int ch;
+            while ((ch = getchar()) != '\n' && ch != EOF);
+            printf("Username is too long. Please enter a username with less than 50 characters.\n");
+        }
+        else {
+            // Replace newline character with null-terminating character
+            username[strcspn(username, "\n")] = '\0';
+            break;
+        }
+    } while (1);
 }

@@ -17,7 +17,7 @@ void displayLoadingScreen() {
     
     printAsciiArt(GAME_LOGO);
 
-    printLoadingDots(false, 1);
+    printLoadingDots(0, false, 1);
 
     Sleep(500);
 }
@@ -32,18 +32,16 @@ void displayReturningPlayerMenu(const char* username) {
     printf("1. Continue your adventure\n");
     printf("2. Restart your adventure!\n");
     printf("3. Change your settings\n");
-    printf("4. Exit\n");
-    printf("\nEnter your choice: ");
+    printf("4. Exit\n\n");
 }
 
 /**
  * Displays the menu for new players.
  */
 void displayNewPlayerMenu() {
-    printf("Welcome adventurer, what would you like to do?\n\n");
+    printf("Welcome traveler, what would you like to do?\n\n");
     printf("1. Start a new adventure!\n");
-    printf("2. Exit\n");
-    printf("\nEnter your choice: ");
+    printf("2. Exit\n\n");
 }
 
 /**
@@ -66,4 +64,15 @@ void displayMenuScreen() {
     else {
         handleReturningPlayer(&user);
     }
+}
+
+/**
+ * Displays the welcome screen for new players.
+ */
+void displayWelcomeScreen() {
+    clearScreen();
+
+    printAsciiArt(GAME_LOGO);
+    
+    printTyping(1, WELCOME_TEXT);
 }
